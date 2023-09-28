@@ -1,18 +1,9 @@
-" TI-99/4-style BASIC Syntax
+" TI-BASIC syntax file using TI8X series tokens
 "
-" Language:    TI-BASIC
-" Maintainer:  Tim Hentenaar <tim@hentenaar.com>
-" Last Change: Fri Dec 1 2007 12:53:00 AM
-" Version:     1.0
-"
-" Description:
-" 	Based on the Beginner's Basic and Extended Basic References
-" 	Circa 1981.
-"
+" Source: https://github.com/Arian04/vim-tibasic-syntax
 
-if version < 600
-	syntax clear
-elseif exists("b:current_syntax")
+" quit if a syntax file was already loaded
+if exists("b:current_syntax")
 	finish
 endif
 
@@ -29,18 +20,14 @@ syn match   tiNumber		"\<\d\+\>\.\<\d\+\>"
 " Variable Identifiers
 syn match   tiVar		"\<[a-zA-Z_][a-zA-Z0-9_]*\>\$\?"
 
-" Line numbers
-syn region  tiLineNumber	start="^\s*[0-9]" end="\s"
-
 " Comments
-syn region  tiComment		start="^\s*[Rr][Ee][Mm]\s" end="$"
-syn region  tiComment		start=":\s*[Rr][Ee][Mm]\s" end="$"
+syn region  tiComment		start="#\s*" end="$"
 
-" Strings
+" Strings TODO: understand this
 syn region  tiString		start=+"+ skip=+\\\\\|\\"+ end=+"+ 
 
 " Statements
-syn case ignore
+syn case match
 
 syn keyword tiStatement		ACCEPT AND CALL CLOSE DATA DEF DIM DISPLAY END FOR TO STEP NEXT GOSUB GOTO 
 syn keyword tiStatement		IF THEN ELSE IMAGE INPUT LET LINPUT NEXT OPEN OR PRINT RANDOMIZE READ RESTORE
@@ -64,26 +51,15 @@ syn keyword tiSub		SPRITE VCHAR VERSION
 syn keyword tiFunction		ABS ASC COS EOF EXP INT LEN LOG MAX MIN PI POS REC RND SIN SQR TAB TAN VAL
 syn region  tiFunction		start="\(chr\|rpt\|seg\|str\)" end="\$"
 
-if version >= 508 || !exists("did_mysql_syn_inits")
-	if version < 508
-		let did_ti_syn_inits = 1
-		command -nargs=+ HiLink hi link <args>
-	else
-		command -nargs=+ HiLink hi def link <args>
-	endif
-
-	HiLink tiStatement		 Statement
-	HiLink tiSub			 Type
-	HiLink tiFunction		 Special
-	HiLink tiFileNumber		 Identifier
-	HiLink tiString			 String
-	HiLink tiNumber			 Number
-	HiLink tiOperator		 Operator
-	HiLink tiComment		 Comment
-	HiLink tiLineNumber		 Comment
-	HiLink tiVar			 Identifier
-	delcommand HiLink
-endif
+" Define default highlighting (if an item's highlighting hasn't been set yet)
+hi def link tiStatement 	Statement
+hi def link tiSub 			Type
+hi def link tiFunction 		Special
+hi def link tiFileNumber 	Identifier
+hi def link tiString 		String
+hi def link tiNumber 		Number
+hi def link tiOperator 		Operator
+hi def link tiComment 		Comment
+hi def link tiVar 			Identifier
 
 let b:current_syntax = "tibasic"
-
