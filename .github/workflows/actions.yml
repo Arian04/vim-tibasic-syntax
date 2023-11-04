@@ -36,6 +36,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: "${{ env.NOW }}"
+          tag: "${{ env.NOW }}"
           fail_on_unmatched_files: true
           files: "${{ env.OUTPUT_PATH }}"
