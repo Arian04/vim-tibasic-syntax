@@ -343,7 +343,9 @@ if __name__ == "__main__":
             "Goto",
             "End",
             "Pause",
+            "Wait",
             "Return",
+            "Stop",
         ],
         "tiUserInputCommand": [
             "Prompt",
