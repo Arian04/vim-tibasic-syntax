@@ -18,11 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: set env
+      - name: set current time to env var
         run: echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
 
       - name: setup python
