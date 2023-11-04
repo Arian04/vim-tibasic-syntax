@@ -1,5 +1,8 @@
 name: Auto-release latest vim syntax file
 
+permissions:
+  contents: write
+
 env:
   SCRIPT_PATH: 'generate_vim_syntax.py'
   OUTPUT_PATH: 'tibasic.vim'
@@ -8,7 +11,7 @@ on:
   push:
     paths:
       - "${{ env.SCRIPT_PATH }}"
-
+  workflow_dispach:
 
 jobs:
   build:
