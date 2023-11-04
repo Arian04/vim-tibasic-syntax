@@ -342,6 +342,8 @@ if __name__ == "__main__":
         "tiMiscStatement": [
             "Goto",
             "End",
+            "Pause",
+            "Return",
         ],
         "tiUserInputCommand": [
             "Prompt",
