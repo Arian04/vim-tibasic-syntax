@@ -348,7 +348,7 @@ if __name__ == "__main__":
             "Input",
         ],
         "tiMiscCommand": [
-            # "",
+            "getKey",
         ],
     }
     OTHER_CATEGORY = "tiOther"
