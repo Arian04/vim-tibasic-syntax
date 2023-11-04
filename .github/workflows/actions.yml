@@ -1,8 +1,5 @@
 name: Auto-release latest vim syntax file
 
-permissions:
-  contents: write
-
 env:
   SCRIPT_PATH: 'generate_vim_syntax.py'
   OUTPUT_PATH: 'tibasic.vim'
@@ -16,14 +13,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: checkout repo content
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      - name: set current time to env var
-        run: echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
 
       - name: setup python
         uses: actions/setup-python@v4
@@ -33,9 +29,14 @@ jobs:
       - name: execute py script
         run: python "${{ env.SCRIPT_PATH }}"
 
+      - name: set env vars for release tag name
+        run: |
+          echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+          echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: "${{ env.NOW }}"
+          tag_name: "${{ env.NOW }}_${{ env.sha_short }}"
           fail_on_unmatched_files: true
           files: "${{ env.OUTPUT_PATH }}"
