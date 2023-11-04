@@ -1,0 +1,36 @@
+name: Auto-release latest vim syntax file
+
+env:
+  SCRIPT_PATH: 'generate_vim_syntax.py'
+  OUTPUT_PATH: 'tibasic.vim'
+
+on:
+  push:
+    paths:
+      - "$SCRIPT_PATH"
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+
+      - name: set env
+        run: echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: execute py script
+        run: python "${{ env.SCRIPT_PATH }}"
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "${{ env.NOW }}"
+          fail_on_unmatched_files: true
+          files: "${{ env.OUTPUT_PATH }}"
