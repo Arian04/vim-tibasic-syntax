@@ -10,7 +10,7 @@ env:
 on:
   push:
     paths:
-      - "${{ env.SCRIPT_PATH }}"
+      - "*.py"
   workflow_dispatch:
 
 jobs:
