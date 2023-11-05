@@ -129,7 +129,7 @@ def categorize_token(token, tokens):
         return
     else:
         # No match :(
-        tokens[OTHER_CATEGORY].append(token)
+        tokens[UNCATEGORIZED_CATEGORY].append(token)
 
 
 def main():
@@ -155,7 +155,7 @@ def main():
     tokens = {}
     for category in ALL_CATEGORIES:
         tokens[category] = []
-    tokens[OTHER_CATEGORY] = []  # For the non-matches
+    tokens[UNCATEGORIZED_CATEGORY] = []  # For the non-matches
 
     # Put every token into an array based on its category
     for token in all_tokens_to_process:
@@ -169,13 +169,9 @@ def main():
     with open(".git/refs/heads/main", "r") as file:
         commit_hash = file.read().strip()
 
-    timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-
     prepend_lines = ""
     if commit_hash is not None:  # todo match regex
         prepend_lines += f'" File generated using script from commit hash {commit_hash}\n'
-    if timestamp is not None:
-        prepend_lines += f'" File generated at {timestamp} UTC\n'
 
     # Write vim syntax file
     with open(OUTPUT_FILE_NAME, "w") as file:
@@ -214,7 +210,6 @@ if __name__ == "__main__":
         r"{Y[0-9]}": "tiYVars",  # variables: {Y1}, {Y6}, etc.
         r"{[XY][0-9]T}": "tiParametricVars",  # variables: {X1T}, {X6T}, {Y1T}, {Y6T}, etc.
         r"{r[0-9]}": "tiPolarVars",  # variables: {r1}, {r4}, etc.
-        # FIXME: regexes below are broken
         r"[uvw]\(n\)": "tiSequentialVars",
         r"[uvw]\(n-1\)": "tiSequentialVars",
         r"[uvw]\(n-2\)": "tiSequentialVars",
@@ -355,7 +350,7 @@ if __name__ == "__main__":
             "getKey",
         ],
     }
-    OTHER_CATEGORY = "tiOther"
+    UNCATEGORIZED_CATEGORY = "tiOther"
 
     ALL_CATEGORIES = set([*TOKEN_TO_CATEGORY.keys()] + [*REGEX_TO_CATEGORY.values()])
 
