@@ -354,7 +354,7 @@ if __name__ == "__main__":
             "getKey",
         ],
     }
-    UNCATEGORIZED_CATEGORY = "tiOther"
+    UNCATEGORIZED_CATEGORY = "tiUncategorized"
 
     ALL_CATEGORIES = set([*TOKEN_TO_CATEGORY.keys()] + [*REGEX_TO_CATEGORY.values()])
 
