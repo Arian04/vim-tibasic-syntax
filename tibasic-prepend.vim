@@ -12,7 +12,7 @@ syn match   tiNumber		"\<\d\+\>"
 syn match   tiNumber		"\<\d\+\>\.\<\d\+\>"
 
 " Comments
-syn region  tiComment		start="#\s*" end="$"
+syn match  tiComment		"#.*$"
 
 " Strings TODO: understand this syntax
 syn region  tiString		start=+"+ skip=+\\\\\|\\"+ end=+"+ 

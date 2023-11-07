@@ -47,6 +47,10 @@ def generate_vim_highlight_definitions():
         file_content += f"hi def link {category} {category_highlight_group}"
         file_content += "\n"
 
+    # Highlight comments as well (their match regex is in the prepend file)
+    file_content += f"hi def link tiComment Comment"
+    file_content += "\n"
+
     # intentionally leaving the trailing newline in here because otherwise the next line
     # will start on the end of this one. kinda obvious in hindsight but just leaving
     # this comment here for clarity
